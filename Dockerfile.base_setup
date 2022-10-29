@@ -1,0 +1,31 @@
+# Dockerfile development version
+FROM ruby:3.1.2
+
+ARG USER_ID=1000
+ARG GROUP_ID=1000
+
+RUN addgroup --gid $GROUP_ID user
+RUN adduser --disabled-password --gecos '' --uid $USER_ID --gid $GROUP_ID user
+
+# Install yarn
+RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg -o /root/yarn-pubkey.gpg && apt-key add /root/yarn-pubkey.gpg
+RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" > /etc/apt/sources.list.d/yarn.list
+RUN apt-get update -qq && apt-get install -y --no-install-recommends nodejs yarn postgresql-client
+
+RUN apt update -y
+RUN apt upgrade -y
+RUN apt install sqlite3 -y
+
+# Default directory
+RUN mkdir -p /app
+
+RUN chmod -R 755 /app
+
+RUN chown -R user:user /app
+
+USER user
+
+RUN gem install rails
+RUN gem install bundler --no-document
+
+CMD ["bin", "bash"]
