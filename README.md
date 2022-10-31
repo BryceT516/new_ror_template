@@ -5,20 +5,20 @@
 ### Initial commands to run after cloning the project (with the two Dockerfiles at the same directory level):
 docker build -t base_image -f Dockerfile.base_setup
 
-docker build -t take_stock .
+docker build -t <image_name> .
 
 ### If this is an existing project (there are files beyond the Dockerfiles):
 #### Start a container running the server:
-docker container run -it -v $PWD:/app -v $PWD/bundle:/bundle -e BUNDLE_PATH=/bundle --rm -p 3000:3000 --name take_stock take_stock
+docker container run -it -v $PWD:/app -v $PWD/bundle:/bundle -e BUNDLE_PATH=/bundle --rm -p 3000:3000 --name <image_name> <image_name>
 
 #### Now you can navigate to the running app at `localhost:3000`
 
 #### When the server is running in a container, that container can be accessed with (execute in another terminal):
-docker container exec -it take_stock /bin/bash
+docker container exec -it <image_name> /bin/bash
 
 ### If this is a new project and a Rails application has not been created yet:
 #### Start a container with:
-docker container run -it -v $PWD:/app -v $PWD/bundle:/bundle -e BUNDLE_PATH=/bundle --rm -p 3000:3000 --name take_stock take_stock /bin/bash
+docker container run -it -v $PWD:/app -v $PWD/bundle:/bundle -e BUNDLE_PATH=/bundle --rm -p 3000:3000 --name <image_name> <image_name> /bin/bash
 
 #### Create the rails application with:
 rails new .
