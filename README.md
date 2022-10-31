@@ -3,7 +3,7 @@
 
 
 ### Initial commands to run after cloning the project (with the two Dockerfiles at the same directory level):
-docker build -t base_image -f Dockerfile.base_setup
+docker build -t base_image -f Dockerfile.base_setup .
 
 docker build -t <image_name> .
 
